@@ -1,4 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './route'
+import store from './store'
 
-createApp(App).mount('#app')
+import 'primeicons/primeicons.css'
+
+createApp(App)
+	.use(router)
+	.use(store)
+	.mount('#app')

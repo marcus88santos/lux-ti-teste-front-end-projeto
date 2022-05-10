@@ -1,5 +1,5 @@
 {
-  "name": "lux-ti-teste-front-end",
+  "name": "lux-ti-teste-front-end-projeto",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -7,10 +7,15 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
-    "vue": "^3.2.33"
+    "axios": "^0.27.2",
+    "primeicons": "^5.0.0",
+    "vue": "^3.2.33",
+    "vue-router": "^4.0.15",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",
+    "sass": "^1.51.0",
     "vite": "^2.9.5"
   }
 }
