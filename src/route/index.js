@@ -5,9 +5,9 @@ import Result from '../views/Result.vue'
 
 const routes = [
 	{ path: '', component: Home },
-	{ path: '/Home', component: Home },
-	{ path: '/Favoritos', component: Favoritos },
-	{ path: '/Result', component: Result },
+	{ path: '/home', component: Home },
+	{ path: '/favoritos', component: Favoritos },
+	{ path: '/result', component: Result },
 ]
 
 const router = createRouter({

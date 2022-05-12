@@ -3,6 +3,11 @@
 	export default {
 		name: 'Home',
 		components: { SearchBar },
+		data () {
+			return {
+				gitSearch: this.$store.state.gitSearch.text,
+			}
+		},
 	}
 </script>
 
@@ -13,12 +18,13 @@
 			<i class="home__title__italic">Search</i>
 		</h1>
 		<SearchBar />
+		<p v-if="this.$store.state.gitSearch.error" class="home__error">
+			Usuário não encontrado!
+		</p>
 	</div>
 </template>
 
 <style lang="scss">
-	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap');
-	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
 	.home {
 		@include flex;
 		flex-direction: column;
@@ -27,12 +33,25 @@
 		width: 100%;
 	}
 	.home__title {
-		font-family: 'Roboto Mono', monospace;
-		font-size: 70px;
+		font-size: 45px;
 		text-shadow: 0px 3px 4px rgba(0, 0, 0, 0.7);
 		font-weight: 700;
+		margin-bottom: 0.5em;
 	}
 	.home__title__italic {
 		font-weight: 400;
+	}
+	.home__error {
+		color: red;
+		text-align: center;
+		position: absolute;
+		bottom: 30%;
+		left: calc(50% - 115px);
+		width: 230px;
+	}
+	@media (min-width: 600px) {
+		.home__title {
+			font-size: 70px;
+		}
 	}
 </style>

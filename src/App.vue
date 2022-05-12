@@ -7,19 +7,11 @@
 </template>
 
 <style lang="scss">
-	// @font-face {
-	// 	font-family: 'RobotoMonoMedium';
-	// 	font-display: auto;
-	// 	src: local('RobotoMonoMedium') url('/fonts/RobotoMono-Medium.ttf');
-	// }
-	// @font-face {
-	// 	font-family: 'RobotoMonoRegular';
-	// 	font-display: auto;
-	// 	src: local('RobotoMonoRegular') url('/fonts/RobotoMono-Regular.ttf');
-	// }
+	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
 	* {
 		box-sizing: border-box;
-		// font-family: 'RobotoMonoRegular', monospace;
+		font-family: 'Roboto Mono', monospace;
 		margin: 0;
 		padding: 0;
 	}
