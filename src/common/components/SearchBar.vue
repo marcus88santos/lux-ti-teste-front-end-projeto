@@ -11,6 +11,7 @@
 			handleSearch () {
 				if (this.gitSearch.length > 0) {
 					this.$store.dispatch('searchUser', this.gitSearch)
+					this.$store.dispatch('searchRepos', this.gitSearch)
 					this.$router.push('/result')
 					this.gitSearch = ''
 				}

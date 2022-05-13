@@ -13,11 +13,26 @@
 					'public_repos',
 					'followers',
 				],
+				gitFavorite: this.$store.state.gitFavorite,
 			}
 		},
 		methods: {
 			favoritos () {
 				this.$router.push('/favoritos')
+			},
+			handleFavorite (repo) {
+				this.$store.commit('setFavorite', repo)
+			},
+			isFavorite: (item, store) => {
+				let favorited = false
+				store.state.gitFavorite.forEach(el => {
+					if (el) {
+						if (el.id == item.id) {
+							favorited = true
+						}
+					}
+				})
+				return favorited
 			},
 		},
 	}
@@ -41,7 +56,30 @@
 						</li>
 					</ul>
 				</div>
-				<div class="result__content__userRepository">repos</div>
+				<div class="result__content__userRepository">
+					<ul>
+						<li
+							v-for="(item, index) in this.$store.state.gitUser.repos"
+							:key="index"
+							@click="handleFavorite(item)"
+						>
+							<div class="result__content__userRepository_repo">
+								<h2>{{ item.name }}</h2>
+								<p>{{ item.description }}</p>
+								<div class="result__content__userRepository_repoStar">
+									<i class="pi pi-star"></i>
+									<p>{{ item['stargazers_count'] }}</p>
+								</div>
+							</div>
+							<div class="result__content__userRepository_starred">
+								<i
+									class="pi pi-star"
+									:class="{ favorited: isFavorite(item, this.$store) }"
+								></i>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div class="result__content__favorite" @click="favoritos">
 				<i class="pi pi-star"></i>
@@ -117,17 +155,60 @@
 		flex: 1;
 		padding: 5%;
 		width: 100%;
+		li {
+			@include flex;
+			cursor: pointer;
+			flex-direction: row;
+			justify-content: space-between;
+			margin-bottom: 1em;
+			.result__content__userRepository_repo {
+				padding-right: 0.5em;
+				* {
+					margin-bottom: 0.5em;
+				}
+				h2 {
+					font-weight: 400;
+					width: 100%;
+				}
+				p {
+					color: gray;
+				}
+				.result__content__userRepository_repoStar {
+					@include flex;
+					flex-direction: row;
+					i {
+						margin-right: 0.5em;
+					}
+				}
+			}
+			.result__content__userRepository_starred {
+				align-items: flex-start;
+				display: flex;
+				i {
+					cursor: pointer;
+					font-size: 1.1em;
+					font-weight: bold;
+				}
+			}
+		}
 	}
 	.result__content__favorite {
 		@include flex;
-		cursor: pointer;
 		font-size: 20px;
 		margin-bottom: 1em;
 		margin-top: 0.5em;
 		i {
 			color: yellow;
+			font-weight: bold;
 			margin-right: 0.5em;
 		}
+	}
+	ul,
+	li {
+		list-style-type: none;
+	}
+	.favorited {
+		color: yellow;
 	}
 	@media (min-width: 600px) {
 		.result__content {
@@ -145,7 +226,7 @@
 			}
 		}
 		.result__content__userRepository {
-			padding: 0 1em 0 3em;
+			padding: 0 2em 0 3em;
 			width: unset;
 		}
 	}

@@ -6,7 +6,6 @@ const store = createStore({
 		return {
 			gitSearch: { text: '', error: false },
 			gitUser: {},
-			gitUserRepository: [],
 			gitFavorite: [],
 		}
 	},
@@ -22,6 +21,23 @@ const store = createStore({
 		},
 		setGitUserStarred (state, payload) {
 			state.gitUser.starred = payload
+		},
+		setGitUserRepos (state, payload) {
+			state.gitUser.repos = payload
+		},
+		setFavorite (state, payload) {
+			let tofavorite = true
+			state.gitFavorite.forEach((el, index) => {
+				if (el) {
+					if (el['id'] === payload['id']) {
+						state.gitFavorite.splice(index, 1)
+						tofavorite = false
+					}
+				}
+			})
+			if (tofavorite) {
+				state.gitFavorite.push(payload)
+			}
 		},
 	},
 	actions: {
@@ -43,6 +59,18 @@ const store = createStore({
 			AxiosInstance.get(payload)
 				.then(({ data }) => {
 					commit('setGitUserStarred', data.length)
+				})
+				.catch(error => {
+					console.log(error)
+				})
+		},
+		searchRepos ({ commit }, payload) {
+			AxiosInstance.get(`${payload}/repos`)
+				.then(({ data }) => {
+					let sorted = [...data].sort((a, b) => {
+						return b['stargazers_count'] - a['stargazers_count']
+					})
+					commit('setGitUserRepos', sorted)
 				})
 				.catch(error => {
 					console.log(error)
