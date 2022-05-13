@@ -34,6 +34,9 @@
 				})
 				return favorited
 			},
+			getImg (info) {
+				return new URL(`../assets/images/${info}.png`, import.meta.url).href
+			},
 		},
 	}
 </script>
@@ -51,7 +54,7 @@
 					</p>
 					<ul>
 						<li v-for="(info, index) in infos" :key="index">
-							<img :src="`/src/assets/images/${info}.png`" :alt="info" />
+							<img :src="getImg(info)" :alt="info" />
 							<p>{{ this.$store.state.gitUser[info] }}</p>
 						</li>
 					</ul>
