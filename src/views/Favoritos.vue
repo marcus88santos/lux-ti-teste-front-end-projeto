@@ -24,6 +24,9 @@
 			<div
 				class="result__content__userRepository favoritos__content__userRepository"
 			>
+				<p v-if="this.$store.state.gitSearch.error" class="result__error">
+					Usuário não encontrado!
+				</p>
 				<ul v-if="this.$store.state.gitFavorite.length > 0">
 					<li
 						v-for="(item, index) in this.$store.state.gitFavorite"
@@ -40,12 +43,6 @@
 						</div>
 					</li>
 				</ul>
-				<p
-					v-else-if="this.$store.state.gitSearch.error"
-					class="result__error"
-				>
-					Usuário não encontrado!
-				</p>
 				<p v-else>Favorite algum repositório...</p>
 			</div>
 		</div>
@@ -65,9 +62,10 @@
 		width: 96%;
 	}
 	.favoritos__content__userRepository {
-		padding-inline: 0 !important;
 		flex: 1;
+		flex-direction: column;
 		justify-content: space-around;
+		padding-inline: 0 !important;
 		width: 100% !important;
 		ul,
 		li {
