@@ -56,7 +56,10 @@
 						</li>
 					</ul>
 				</div>
-				<div class="result__content__userRepository">
+				<p v-if="this.$store.state.gitSearch.error" class="result__error">
+					Usuário não encontrado!
+				</p>
+				<div v-else class="result__content__userRepository">
 					<ul>
 						<li
 							v-for="(item, index) in this.$store.state.gitUser.repos"
@@ -149,6 +152,9 @@
 		margin-bottom: 2.5em;
 		text-align: left;
 		width: 100%;
+	}
+	.result__error {
+		color: red;
 	}
 	.result__content__userRepository {
 		@include flex;

@@ -43,10 +43,8 @@
 	}
 	.home__error {
 		color: red;
+		margin-top: 1em;
 		text-align: center;
-		position: absolute;
-		bottom: 30%;
-		left: calc(50% - 115px);
 		width: 230px;
 	}
 	@media (min-width: 600px) {

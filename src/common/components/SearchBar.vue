@@ -3,25 +3,25 @@
 		name: 'SearchBar',
 		data () {
 			return {
-				gitSearch: this.$store.state.gitSearch.text,
-				gitError: this.$store.state.gitSearch.error,
+				gitSearch: '',
 			}
 		},
 		methods: {
 			handleSearch () {
 				if (this.gitSearch.length > 0) {
-					this.$store.dispatch('searchUser', this.gitSearch)
-					this.$store.dispatch('searchRepos', this.gitSearch)
-					this.$router.push('/result')
-					this.gitSearch = ''
+					this.$store.dispatch('searchUser', this.gitSearch).then(() => {
+						if (Object.keys(this.$store.state.gitUser).length != 0) {
+							this.gitSearch = ''
+						}
+					})
 				}
 			},
 		},
 		computed: {
 			placeholder () {
-				return this.$store.state.gitSearch.text.length === 0
+				return this.$store.state.gitSearch.text.length == 0
 					? 'Pesquisar...'
-					: this.$store.state.gitSearch.text
+					: this.$store.state.gitUser.login
 			},
 		},
 	}

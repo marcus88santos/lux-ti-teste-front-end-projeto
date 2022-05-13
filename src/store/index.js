@@ -1,5 +1,6 @@
 import { AxiosInstance } from '@/services'
 import { createStore } from 'vuex'
+import router from '@/route'
 
 const store = createStore({
 	state () {
@@ -41,19 +42,30 @@ const store = createStore({
 		},
 	},
 	actions: {
-		searchUser ({ dispatch, commit }, payload) {
-			AxiosInstance.get(payload)
-				.then(({ data }) => {
-					// console.log(data)
-					commit('setGitError', false)
-					commit('setGitUser', data)
-					commit('setGitText', payload)
-					dispatch('searchStarred', `${payload}/starred`)
-				})
-				.catch(error => {
-					commit('setGitError', true)
-					console.log(error)
-				})
+		searchUser ({ dispatch, commit, state }, payload) {
+			return new Promise((resolve, reject) => {
+				AxiosInstance.get(payload)
+					.then(({ data }) => {
+						// console.log(data)
+						commit('setGitError', false)
+						commit('setGitUser', data)
+						commit('setGitText', payload)
+						if (Object.keys(state.gitUser).length != 0) {
+							dispatch('searchRepos', payload)
+							dispatch('searchStarred', `${payload}/starred`)
+							router.push('/result')
+						} else {
+							commit('setGitError', true)
+							commit('setGitUser', {})
+						}
+						resolve()
+					})
+					.catch(error => {
+						commit('setGitError', true)
+						commit('setGitUser', {})
+						console.log(error)
+					})
+			})
 		},
 		searchStarred ({ commit }, payload) {
 			AxiosInstance.get(payload)

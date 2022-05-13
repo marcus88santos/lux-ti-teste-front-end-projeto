@@ -19,12 +19,20 @@
 				this.title.indexOf(this.italic)
 			)
 		},
+		methods: {
+			handleHome () {
+				this.$store.commit('setGitUser', {})
+				this.$store.commit('setGitText', '')
+				this.$store.commit('setGitError', false)
+				this.$router.push('/')
+			},
+		},
 	}
 </script>
 
 <template>
 	<header class="header">
-		<h1 class="header__tile">
+		<h1 class="header__tile" @click="handleHome">
 			{{ titleRegular }}
 			<i class="header__title__italic">{{ italic }}</i>
 		</h1>
@@ -41,6 +49,7 @@
 		margin: 2%;
 		width: 96%;
 		h1 {
+			cursor: pointer;
 			white-space: nowrap;
 			i {
 				font-weight: 400;
