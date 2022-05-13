@@ -46,7 +46,6 @@ const store = createStore({
 			return new Promise((resolve, reject) => {
 				AxiosInstance.get(payload)
 					.then(({ data }) => {
-						// console.log(data)
 						commit('setGitError', false)
 						commit('setGitUser', data)
 						commit('setGitText', payload)

@@ -13,11 +13,11 @@
 					'public_repos',
 					'followers',
 				],
-				gitFavorite: this.$store.state.gitFavorite,
 			}
 		},
 		methods: {
 			favoritos () {
+				this.$store.commit('setGitText', '')
 				this.$router.push('/favoritos')
 			},
 			handleFavorite (repo) {
@@ -40,7 +40,7 @@
 
 <template>
 	<div class="result">
-		<Header class="result__header" title="Github Search" italic="Search" />
+		<Header title="Github Search" italic="Search" />
 		<div class="result__content">
 			<div class="result__content__user">
 				<div class="result__content__userInfo">
@@ -167,39 +167,40 @@
 			flex-direction: row;
 			justify-content: space-between;
 			margin-bottom: 1em;
-			.result__content__userRepository_repo {
-				padding-right: 0.5em;
-				* {
-					margin-bottom: 0.5em;
-				}
-				h2 {
-					font-weight: 400;
-					width: 100%;
-				}
-				p {
-					color: gray;
-				}
-				.result__content__userRepository_repoStar {
-					@include flex;
-					flex-direction: row;
-					i {
-						margin-right: 0.5em;
-					}
-				}
-			}
-			.result__content__userRepository_starred {
-				align-items: flex-start;
-				display: flex;
-				i {
-					cursor: pointer;
-					font-size: 1.1em;
-					font-weight: bold;
-				}
-			}
+		}
+	}
+	.result__content__userRepository_repo {
+		padding-right: 0.5em;
+		* {
+			margin-bottom: 0.5em;
+		}
+		h2 {
+			font-weight: 400;
+			width: 100%;
+		}
+		p {
+			color: gray;
+		}
+	}
+	.result__content__userRepository_repoStar {
+		@include flex;
+		flex-direction: row;
+		i {
+			margin-right: 0.5em;
+		}
+	}
+	.result__content__userRepository_starred {
+		align-items: flex-start;
+		display: flex;
+		i {
+			cursor: pointer;
+			font-size: 1.1em;
+			font-weight: bold;
 		}
 	}
 	.result__content__favorite {
 		@include flex;
+		cursor: pointer;
 		font-size: 20px;
 		margin-bottom: 1em;
 		margin-top: 0.5em;
@@ -212,6 +213,7 @@
 	ul,
 	li {
 		list-style-type: none;
+		width: 100%;
 	}
 	.favorited {
 		color: yellow;
@@ -232,6 +234,7 @@
 			}
 		}
 		.result__content__userRepository {
+			flex: 1;
 			padding: 0 2em 0 3em;
 			width: unset;
 		}

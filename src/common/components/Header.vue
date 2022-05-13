@@ -14,10 +14,14 @@
 			italic: String,
 		},
 		created () {
-			this.titleRegular = this.title.substring(
-				0,
-				this.title.indexOf(this.italic)
-			)
+			if (this.italic.length > 0) {
+				this.titleRegular = this.title.substring(
+					0,
+					this.title.indexOf(this.italic)
+				)
+			} else {
+				this.titleRegular = this.title
+			}
 		},
 		methods: {
 			handleHome () {
@@ -50,6 +54,8 @@
 		width: 96%;
 		h1 {
 			cursor: pointer;
+			font-size: 1.5em;
+			margin-bottom: 1%;
 			white-space: nowrap;
 			i {
 				font-weight: 400;
@@ -64,6 +70,9 @@
 	@media (min-width: 600px) {
 		.header {
 			flex-direction: row;
+			h1 {
+				font-size: 2em;
+			}
 		}
 		.header__search-bar {
 			flex: 1;
